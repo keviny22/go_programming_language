@@ -65,4 +65,50 @@ func main() {
 	//a = 1
 	//message = "hello go world"
 	//fmt.Println(message, a, b, c)
+
+	Greet(s, CreatePrintFunction("!!!!"), true)
+}
+
+//both are strings as input, output is also returns two strings
+func CreateMessage(name, greeting string) (message string, alternate string) {
+	//fmt.Println(len(greeting))
+	message = greeting + " " + name
+	alternate = "Hey " + name
+	return
+
+	//fmt.Println(name, greeting)
+}
+
+type Printer func(string)
+
+//func Greet(salutation Salutation, do func(string)) {
+func Greet(salutation Salutation, do Printer, isFormal bool) {
+	//fmt.Println(salutation.name1)
+	//fmt.Println(salutation.greeting1)
+	//fmt.Println(CreateMessage(salutation.name1, salutation.greeting1))
+	message, alternate := CreateMessage(salutation.name1, salutation.greeting1)
+
+	if isFormal {
+		do(message)
+	}
+
+	do(alternate)
+
+}
+
+func Print(s string) {
+	fmt.Print(s)
+}
+
+func PrintLine(s string) {
+	fmt.Println(s)
+}
+
+func CreatePrintFunction(custom string) Printer {
+	return func(s string) {
+		fmt.Println(s + custom)
+	}
+}
+func PrintCustom(s string, custom string) {
+	fmt.Println(s + custom)
 }
